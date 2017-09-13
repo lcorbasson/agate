@@ -36,5 +36,10 @@ class Max(Aggregation):
 
     def run(self, table):
         column = table.columns[self._column_name]
+        values = column.values_without_nulls()
+        if len(values) == 0:
+            ret = None
+        else:
+            ret = max(column.values_without_nulls())
 
-        return max(column.values_without_nulls())
+        return ret
