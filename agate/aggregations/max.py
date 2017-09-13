@@ -32,7 +32,7 @@ class Max(Aggregation):
         if not (isinstance(column.data_type, Number) or
         isinstance(column.data_type, Date) or
         isinstance(column.data_type, DateTime)):
-            raise DataTypeError('Min can only be applied to columns containing DateTime orNumber data.')
+            raise DataTypeError('Max can only be applied to columns containing DateTime orNumber data.')
 
     def run(self, table):
         column = table.columns[self._column_name]
