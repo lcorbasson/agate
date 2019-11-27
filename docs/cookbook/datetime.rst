@@ -70,7 +70,7 @@ If you load data from a spreadsheet in one timezone and you need to convert it t
 
     table = agate.Table.from_csv('events.csv', columns)
 
-    rome = timezone('Europe/Rome')
+    rome = pytz.timezone('Europe/Rome')
     timezone_shifter = agate.Formula(lambda r: r['when'].astimezone(rome))
 
     table = agate.Table.compute([
