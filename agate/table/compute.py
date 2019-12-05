@@ -29,7 +29,7 @@ def compute(self, computations, replace=False):
 
         if new_column_name in column_names:
             if not replace:
-                raise ValueError('New column name "%s" already exists. Specify replace=True to replace with computed data.')
+                raise ValueError('New column name "%s" already exists. Specify replace=True to replace with computed data.' % new_column_name)
 
             i = column_names.index(new_column_name)
             column_types[i] = new_column_type
