@@ -11,6 +11,6 @@ parsedatetime>=2.1
 pytz>=2015.4
 isodate>=0.5.4
 python-slugify>=1.2.1
-lxml>=3.6.0
+lxml>=4.2.0
 cssselect>=0.9.1
 leather>=0.3.2
