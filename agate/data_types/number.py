@@ -59,6 +59,12 @@ class Number(DataType):
         :returns:
             :class:`decimal.Decimal` or :code:`None`.
         """
+        try:
+            if six.text_type(d).strip().lower() in self.null_values:
+                return None
+        except ValueError:
+            pass
+
         if isinstance(d, Decimal) or d is None:
             return d
 
@@ -72,11 +78,6 @@ class Number(DataType):
             return Decimal(repr(d))
         elif not isinstance(d, six.string_types):
             raise CastError('Can not parse value "%s" as Decimal.' % d)
-
-        d = d.strip()
-
-        if d.lower() in self.null_values:
-            return None
 
         d = d.strip('%')
 
