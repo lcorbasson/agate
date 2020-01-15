@@ -41,3 +41,18 @@ class TimeDelta(DataType):
             raise CastError('Can not parse value "%s" to as timedelta.' % d)
 
         return datetime.timedelta(seconds=seconds)
+
+    def csvify(self, d):
+        if d is None:
+            return None
+
+        days = d.days
+        minutes, seconds = divmod(d.seconds, 60)
+        hours, minutes = divmod(minutes, 60)
+        microseconds = d.microseconds
+
+        # ISO 8601 duration format
+        return 'P%dDT%02dH%02dM%02d.%06dS' %(days, hours, minutes, seconds, microseconds)
+
+    def jsonify(self, d):
+        return self.csvify(d)
