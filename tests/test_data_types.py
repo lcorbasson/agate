@@ -257,10 +257,12 @@ class TestDate(unittest.TestCase):
     def test_cast_format_locale(self):
         date_type = Date(date_format='%d-%b-%Y', locale='de_DE')
 
-        values = ('01-Mrz-1994', '17-Feb-2011', None, '05-Jan-1984', 'n/a')
+        # March can be abbreviated to Mrz or Mär depending on the locale version,
+        # so we use December in the first value to ensure the test passes everywhere
+        values = ('01-Dez-1994', '17-Feb-2011', None, '05-Jan-1984', 'n/a')
         casted = tuple(date_type.cast(v) for v in values)
         self.assertSequenceEqual(casted, (
-            datetime.date(1994, 3, 1),
+            datetime.date(1994, 12, 1),
             datetime.date(2011, 2, 17),
             None,
             datetime.date(1984, 1, 5),
@@ -270,7 +272,7 @@ class TestDate(unittest.TestCase):
     def test_cast_locale(self):
         date_type = Date(locale='fr_FR')
 
-        values = ('01 mars 1994', 'jeudi 17 février 2011', None, '5 janvier 1984', 'n/a')
+        values = ('01 mars 1994', u'jeudi 17 février 2011', None, '5 janvier 1984', 'n/a')
         casted = tuple(date_type.cast(v) for v in values)
         self.assertSequenceEqual(casted, (
             datetime.date(1994, 3, 1),
