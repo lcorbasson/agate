@@ -54,7 +54,7 @@ jobs:
         - pushd vcpkg
         - ./bootstrap-vcpkg.bat -disableMetrics
         - ./vcpkg integrate install
-        - ./vcpkg install icu:x64-windows
+        - travis_wait ./vcpkg install icu:x64-windows
         - cp buildtrees/icu/x64-windows-rel/bin/uconv.exe installed/x64-windows/bin/
         - popd
         - export PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin"
