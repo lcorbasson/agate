@@ -1,48 +1,48 @@
 language: python
-os: linux
-python:
-  - "3.8"
-  - "3.7"
-  - "3.6"
-  - "3.5"
-  - "2.7"
-  - "pypy3"
-  - "pypy3.5-6.0"
-  - "pypy3.5-7.0"
-  - "pypy3.6-7.0.0"
-  - "pypy"
-  - "pypy2.7-6.0"
-  - "pypy2.7-7.0.0"
+#os: linux
+#python:
+#  - "3.8"
+#  - "3.7"
+#  - "3.6"
+#  - "3.5"
+#  - "2.7"
+#  - "pypy3"
+#  - "pypy3.5-6.0"
+#  - "pypy3.5-7.0"
+#  - "pypy3.6-7.0.0"
+#  - "pypy"
+#  - "pypy2.7-6.0"
+#  - "pypy2.7-7.0.0"
 jobs:
   include:
-    - os: osx
-      python: "3.7"
-      osx_image: xcode11.2  # Python 3.7.4 running on macOS 10.14.4
-      language: shell       # 'language: python' is an error on Travis CI macOS
-      before_install:
-        - brew install pkg-config
-        - brew install icu4c
-        - export PATH="$PATH:/usr/local/opt/icu4c/bin"
-        - export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig"
-        - uconv -V
-        - locale -a
-        - LANG=sv_SV.UTF-8 LC_ALL=ko_KR.UTF-8 date -r 762543000 +'%p' # 18:30
-        - LANG=sv_SV.UTF-8 LC_ALL=ko_KR.UTF-8 date -r 762481800 +'%p' # 01:30
-        - python3 -m pip install --upgrade pip
-        - python3 -m pip install --upgrade virtualenv
-        - virtualenv -p python3 --system-site-packages "$HOME/venv"
-        - source "$HOME/venv/bin/activate"
-        - CFLAGS="-O0" STATIC_DEPS=true python3 -m pip install lxml
-        - python3 --version
-        - python --version
-      env:
-        - HOMEBREW_NO_INSTALL_CLEANUP=1
-        - HOMEBREW_NO_ANALYTICS=1
-      before_cache:
-        - rm -f "$HOME/Library/Caches/pip/log/debug.log"
-      cache:
-        directories:
-          - "$HOME/Library/Caches/pip"
+#    - os: osx
+#      python: "3.7"
+#      osx_image: xcode11.2  # Python 3.7.4 running on macOS 10.14.4
+#      language: shell       # 'language: python' is an error on Travis CI macOS
+#      before_install:
+#        - brew install pkg-config
+#        - brew install icu4c
+#        - export PATH="$PATH:/usr/local/opt/icu4c/bin"
+#        - export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/opt/icu4c/lib/pkgconfig"
+#        - uconv -V
+#        - locale -a
+#        - LANG=sv_SV.UTF-8 LC_ALL=ko_KR.UTF-8 date -r 762543000 +'%p' # 18:30
+#        - LANG=sv_SV.UTF-8 LC_ALL=ko_KR.UTF-8 date -r 762481800 +'%p' # 01:30
+#        - python3 -m pip install --upgrade pip
+#        - python3 -m pip install --upgrade virtualenv
+#        - virtualenv -p python3 --system-site-packages "$HOME/venv"
+#        - source "$HOME/venv/bin/activate"
+#        - CFLAGS="-O0" STATIC_DEPS=true python3 -m pip install lxml
+#        - python3 --version
+#        - python --version
+#      env:
+#        - HOMEBREW_NO_INSTALL_CLEANUP=1
+#        - HOMEBREW_NO_ANALYTICS=1
+#      before_cache:
+#        - rm -f "$HOME/Library/Caches/pip/log/debug.log"
+#      cache:
+#        directories:
+#          - "$HOME/Library/Caches/pip"
     - os: windows           # Windows 10.0.17134 N/A Build 17134
       python: "3.8"
       language: shell       # 'language: python' is an error on Travis CI Windows
