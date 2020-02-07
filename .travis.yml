@@ -64,7 +64,7 @@ jobs:
         - popd
         - export PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin"
         - export LD_LIBRARY_PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin:$PWD/vcpkg/installed/x64-windows/lib"
-        - export PYICU_CFLAGS="/DU_STATIC_IMPLEMENTATION=1"
+        - export PYICU_CFLAGS="//DU_STATIC_IMPLEMENTATION=1"
         - export PYICU_INCLUDES="$PWD/vcpkg/installed/x64-windows/include"
         - export PYICU_LFLAGS="/LIBPATH:$winPWD\\vcpkg\\installed\\x64-windows\\lib"
 #        - choco install pkgconfiglite
