@@ -54,10 +54,12 @@ jobs:
         - pushd vcpkg
         - ./bootstrap-vcpkg.bat -disableMetrics
         - ./vcpkg integrate install
-        - ./vcpkg install powershell-core
-        - ./vcpkg install 7zip
-        - ./vcpkg install nuget
-        - travis_wait ./vcpkg install icu:x64-windows
+        # Start a process that runs as a keep-alive to avoid travis quitting if there is no output
+        - start_spinner() { if [ -n "$SPINNER_PID" ]; then return; fi; >&2 echo "Building libraries..."; (while true; do sleep 60; >&2 echo "Still building..."; done) & SPINNER_PID="$!"; disown; }
+        - stop_spinner() { if [ ! -n "$SPINNER_PID" ]; then return; fi; kill "$SPINNER_PID"; unset SPINNER_PID; >&2 echo "Building libraries finished."; }
+        - start_spinner
+        - ./vcpkg install icu:x64-windows
+        - stop_spinner
         - cp buildtrees/icu/x64-windows-rel/bin/uconv.exe installed/x64-windows/bin/
         - popd
         - export PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin"
