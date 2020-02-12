@@ -46,34 +46,34 @@ jobs:
         - export winPWD="${PWD#/}"
         - export winPWD="${winPWD/\//:/}"
         - export winPWD="${winPWD//\//\\}"
-        - choco install pkgconfiglite
-        - pkg-config() { "$ChocolateyInstall/bin/pkg-config.exe" "$@"; }
-        - git clone https://github.com/Microsoft/vcpkg.git
-        - pushd vcpkg
-        - ./bootstrap-vcpkg.bat -disableMetrics
-        - ./vcpkg integrate install
-        # Start a process that runs as a keep-alive to avoid travis quitting if there is no output
-        - start_spinner() { if [ -n "$SPINNER_PID" ]; then return; fi; >&2 echo "Building libraries..."; (while true; do sleep 60; >&2 echo "Still building..."; done) & SPINNER_PID="$!"; disown; }
-        - stop_spinner() { if [ ! -n "$SPINNER_PID" ]; then return; fi; kill "$SPINNER_PID"; unset SPINNER_PID; >&2 echo "Building libraries finished."; }
-        - start_spinner
-        - ./vcpkg install icu:x64-windows
-        - stop_spinner
-        - cp buildtrees/icu/x64-windows-rel/bin/uconv.exe installed/x64-windows/bin/
-        - mkdir -p installed/x64-windows/config
-        - cp buildtrees/icu/x64-windows-rel/config/* installed/x64-windows/config/
-        - popd
-        - export PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin"
-        - export LD_LIBRARY_PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin:$PWD/vcpkg/installed/x64-windows/lib"
-        - export PKG_CONFIG_PATH="$PWD/vcpkg/installed/x64-windows/config"
+#        - choco install pkgconfiglite
+#        - pkg-config() { "$ChocolateyInstall/bin/pkg-config.exe" "$@"; }
+#        - git clone https://github.com/Microsoft/vcpkg.git
+#        - pushd vcpkg
+#        - ./bootstrap-vcpkg.bat -disableMetrics
+#        - ./vcpkg integrate install
+#        # Start a process that runs as a keep-alive to avoid travis quitting if there is no output
+#        - start_spinner() { if [ -n "$SPINNER_PID" ]; then return; fi; >&2 echo "Building libraries..."; (while true; do sleep 60; >&2 echo "Still building..."; done) & SPINNER_PID="$!"; disown; }
+#        - stop_spinner() { if [ ! -n "$SPINNER_PID" ]; then return; fi; kill "$SPINNER_PID"; unset SPINNER_PID; >&2 echo "Building libraries finished."; }
+#        - start_spinner
+#        - ./vcpkg install icu:x64-windows
+#        - stop_spinner
+#        - cp buildtrees/icu/x64-windows-rel/bin/uconv.exe installed/x64-windows/bin/
+#        - mkdir -p installed/x64-windows/config
+#        - cp buildtrees/icu/x64-windows-rel/config/* installed/x64-windows/config/
+#        - popd
+#        - export PATH="$PATH:$PWD/vcpkg/installed/x64-windows/bin"
+#        - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD/vcpkg/installed/x64-windows/bin:$PWD/vcpkg/installed/x64-windows/lib"
+#        - export PKG_CONFIG_PATH="$PWD/vcpkg/installed/x64-windows/config"
 #        - export PYICU_CFLAGS="/MT;/DU_STATIC_IMPLEMENTATION=1"
 #        - export PYICU_INCLUDES="$PWD/vcpkg/installed/x64-windows/include"
 #        - export PYICU_LFLAGS="/LIBPATH:$winPWD/vcpkg/installed/x64-windows/lib;/LIBPATH:$winPWD/vcpkg/installed/x64-windows/bin;-l"
         - wget -q https://github.com/unicode-org/icu/releases/download/release-65-1/icu4c-65_1-Win64-MSVC2017.zip -O icu4c.zip
         - unzip -q icu4c.zip -d /c/icu
-#        - export PATH="$PATH:$PWD/icu4c/bin64"
-#        - export LD_LIBRARY_PATH="$PATH:$PWD/icu4c/bin64:$PWD/icu4c/lib64"
-#        - export PYICU_INCLUDES="$PWD/icu4c/include"
-#        - export PYICU_LFLAGS="/LIBPATH:$PWD/icu4c/lib64"
+        - export PATH="$PATH:/c/icu/bin64"
+        - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/c/icu/bin64:/c/icu/lib64"
+#        - export PYICU_INCLUDES="/c/icu/include"
+#        - export PYICU_LFLAGS="/LIBPATH:/c/icu/lib64"
         - uconv -V
         - export ICU_VERSION="$(uconv -V | sed -e 's,.*\<ICU \([^ ]*\).*,\1,')"
         - choco install python --version 3.8.0
