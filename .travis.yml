@@ -46,10 +46,8 @@ jobs:
         - export winPWD="${PWD#/}"
         - export winPWD="${winPWD/\//:/}"
         - export winPWD="${winPWD//\//\\}"
-        - echo "$PATH"
-        - choco install pkgconfiglite --not-silent -v
-        - ls "$ChocolateyInstall/bin"
-        - pkg-config
+        - choco install pkgconfiglite
+        - pkg-config() { "$ChocolateyInstall/bin/pkg-config.exe" "$@"; }
         - git clone https://github.com/Microsoft/vcpkg.git
         - pushd vcpkg
         - ./bootstrap-vcpkg.bat -disableMetrics
