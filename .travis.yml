@@ -82,6 +82,7 @@ jobs:
         - uconv -V
         - export ICU_VERSION="$(uconv -V | sed -e 's,.*\<ICU \([^ ]*\).*,\1,')"
         - choco install python --version 3.8.0
+        - python -c 'import struct; print(struct.calcsize("P") * 8)'
         - python -m pip install --upgrade pip
         - python --version
         - python -m pip install pyicu
