@@ -28,7 +28,7 @@ def join(self, right_table, left_key=None, right_key=None, inner=False, full_out
     performed. Unmatched rows from both tables will be included, with the
     columns in the other table set to :code:`None`.
 
-    In all cases, if :code:`right_key` is :code:`None` then it :code:`left_key`
+    In all cases, if :code:`right_key` is :code:`None` then :code:`left_key`
     will be used for both tables.
 
     If :code:`left_key` and :code:`right_key` are column names, the right-hand
