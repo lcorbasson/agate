@@ -22,7 +22,7 @@ from agate.exceptions import DataTypeError
 from agate import utils
 
 
-def print_bars(self, label_column_name='group', value_column_name='Count', domain=None, width=120, output=sys.stdout, printable=False):
+def print_bars(self, label_column_name='group', value_column_name='Count', domain=None, width=120, output=None, printable=False):
     """
     Print a text-based bar chart based on this table.
 
@@ -44,6 +44,9 @@ def print_bars(self, label_column_name='group', value_column_name='Count', domai
     :param printable:
         If true, only printable characters will be outputed.
     """
+    if output is None:
+        output = sys.stdout
+
     tick_mark = config.get_option('tick_char')
     horizontal_line = config.get_option('horizontal_line_char')
     locale = config.get_option('default_locale')

@@ -12,7 +12,7 @@ from agate.data_types import Number, Text
 from agate import utils
 
 
-def print_table(self, max_rows=20, max_columns=6, output=sys.stdout, max_column_width=20, locale=None, max_precision=3):
+def print_table(self, max_rows=20, max_columns=6, output=None, max_column_width=20, locale=None, max_precision=3):
     """
     Print a text-based view of the data in this table.
 
@@ -27,7 +27,7 @@ def print_table(self, max_rows=20, max_columns=6, output=sys.stdout, max_column_
         This defaults to :code:`6` to prevent wrapping in most cases. Pass
         :code:`None` to disable the limit.
     :param output:
-        A file-like object to print to.
+        A file-like object to print to. Defaults to :code:`sys.stdout`.
     :param max_column_width:
         Truncate all columns to at most this width. The remainder will be
         replaced with ellipsis.
@@ -47,6 +47,9 @@ def print_table(self, max_rows=20, max_columns=6, output=sys.stdout, max_column_
 
     if max_precision is None:
         max_precision = float('inf')
+
+    if output is None:
+        output = sys.stdout
 
     ellipsis = config.get_option('ellipsis_chars')
     h_line = config.get_option('horizontal_line_char')
