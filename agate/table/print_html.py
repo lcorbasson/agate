@@ -11,7 +11,7 @@ from agate.data_types import Number, Text
 from agate import utils
 
 
-def print_html(self, max_rows=20, max_columns=6, output=sys.stdout, max_column_width=20, locale=None):
+def print_html(self, max_rows=20, max_columns=6, output=None, max_column_width=20, locale=None):
     """
     Print an HTML version of this table.
 
@@ -38,6 +38,9 @@ def print_html(self, max_rows=20, max_columns=6, output=sys.stdout, max_column_w
 
     if max_columns is None:
         max_columns = len(self._columns)
+
+    if output is None:
+        output = sys.stdout
 
     ellipsis = config.get_option('ellipsis_chars')
     locale = locale or config.get_option('default_locale')
